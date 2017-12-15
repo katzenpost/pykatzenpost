@@ -3,3 +3,6 @@
 .eggs
 build
 dist
+*.pyc
+*.swp
+*.swo
