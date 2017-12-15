@@ -1,0 +1,15 @@
+GODEBUG=cgocheck=0 gopy gen -lang="py2" . --> generates stubs
+GODEBUG=cgocheck=0 gopy bind -lang="py2" . --> generates the binding
+
+setuptools-golang has a docker script to build manylinux wheels:
+https://github.com/asottile/setuptools-golang#building-manylinux-wheels
+
+milksnake
+https://github.com/getsentry/milksnake
+
+Milksnake is an extension for setuptools that allows you to distribute dynamic
+linked libraries in Python wheels in the most portable way imaginable.
+It gives you a hook to invoke your own build process and to then take the
+resulting dynamic linked library.
+
+
