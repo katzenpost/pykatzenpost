@@ -9,7 +9,6 @@ export GOROOT=/tmp/go
 export PATH="$GOROOT/bin:$PATH"
 
 # Install a system package required by our library
-yum install -y golang
 go get github.com/go-python/gopy
 export GODEBUG=cgocheck=0
 
