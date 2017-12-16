@@ -2,7 +2,7 @@ from collections import namedtuple
 import threading
 import time
 
-import minclient
+import client
 
 PKI = namedtuple('PKI', ['uri', 'key'])
 DEFAULT_PKI = PKI(

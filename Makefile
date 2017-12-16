@@ -1,5 +1,5 @@
 build_go:
-	GODEBUG=cgocheck=0 gopy bind -output=katzenpost github.com/katzenpost/bindings
+	GODEBUG=cgocheck=0 gopy bind -output=katzenpost github.com/katzenpost/bindings/python
 build:
 	python setup.py build
 wheel:

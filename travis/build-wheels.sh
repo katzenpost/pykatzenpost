@@ -1,9 +1,11 @@
 #!/bin/bash
+
 set -e -x
 yum install -y wget
+
 GOLANG="https://storage.googleapis.com/golang/go1.7.5.linux-amd64.tar.gz"
 GOPY="github.com/go-python/gopy"
-BINDINGS="github.com/katzenpost/bindings"
+BINDINGS="github.com/katzenpost/bindings/python"
 
 wget "${GOLANG}" -q --no-check-certificate -O golang.tar.gz
 tar -xf golang.tar.gz
