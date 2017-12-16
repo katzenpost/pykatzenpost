@@ -1,21 +1,19 @@
 #!/bin/bash
 set -e -x
+yum install -y wget
 
 GOLANG="https://storage.googleapis.com/golang/go1.7.5.linux-amd64.tar.gz"
-
-yum install -y wget
-wget "${GOLANG}" -q --no-check-certificate -O /tmp/golang.tar.gz
-tar -xf /tmp/golang.tar.gz
-export GOROOT=/tmp/go
-export GOPATH=/tmp/go
+wget "${GOLANG}" -q --no-check-certificate -O golang.tar.gz
+tar -xf golang.tar.gz
+export GOROOT=`pwd`/go
+export GOPATH=`pwd`/go
 export PATH="$GOROOT/bin:$PATH"
-
-/tmp/go/bin/go get github.com/go-python/gopy
 export GODEBUG=cgocheck=0
 
+go get github.com/go-python/gopy
+
 # Compile wheels
- for PYBIN in /opt/python/*/bin; do
-    #"${PYBIN}/pip" install -r /io/dev-requirements.txt
+for PYBIN in /opt/python/*/bin; do
     "${PYBIN}/pip" wheel /io/ -w wheelhouse/
 done
 
