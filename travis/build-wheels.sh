@@ -1,6 +1,12 @@
 #!/bin/bash
 set -e -x
 
+GOLANG="https://storage.googleapis.com/golang/go1.7.5.linux-amd64.tar.gz"
+wget "${GOLANG}" -q --no-check-certificate -O /tmp/golang.tar.gz
+tar -xf /tmp/golang.tar.gz
+export GOROOT=/tmp/go
+export PATH="$GOROOT/bin:$PATH"
+
 # Install a system package required by our library
 yum install -y golang
 go get github.com/go-python/gopy
