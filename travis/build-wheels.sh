@@ -6,10 +6,10 @@ GOLANG="https://storage.googleapis.com/golang/go1.7.5.linux-amd64.tar.gz"
 wget "${GOLANG}" -q --no-check-certificate -O /tmp/golang.tar.gz
 tar -xf /tmp/golang.tar.gz
 export GOROOT=/tmp/go
+export GOPATH=/tmp/go
 export PATH="$GOROOT/bin:$PATH"
 
-# Install a system package required by our library
-go get github.com/go-python/gopy
+/tmp/go/bin/go get github.com/go-python/gopy
 export GODEBUG=cgocheck=0
 
 # Compile wheels
