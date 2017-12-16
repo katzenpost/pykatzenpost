@@ -1,8 +1,10 @@
 #!/bin/bash
 set -e -x
 yum install -y wget
-
 GOLANG="https://storage.googleapis.com/golang/go1.7.5.linux-amd64.tar.gz"
+GOPY="github.com/go-python/gopy"
+BINDINGS="github.com/katzenpost/bindings"
+
 wget "${GOLANG}" -q --no-check-certificate -O golang.tar.gz
 tar -xf golang.tar.gz
 export GOROOT=`pwd`/go
@@ -10,7 +12,8 @@ export GOPATH=`pwd`/go
 export PATH="$GOROOT/bin:$PATH"
 export GODEBUG=cgocheck=0
 
-go get github.com/go-python/gopy
+go get "${GOPY}"
+go get "${BINDINGS}"
 
 # Compile wheels
 for PYBIN in /opt/python/*/bin; do
