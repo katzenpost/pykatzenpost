@@ -3,6 +3,7 @@ set -e -x
 
 GOLANG="https://storage.googleapis.com/golang/go1.7.5.linux-amd64.tar.gz"
 
+yum install -y wget
 wget "${GOLANG}" -q --no-check-certificate -O /tmp/golang.tar.gz
 tar -xf /tmp/golang.tar.gz
 export GOROOT=/tmp/go
