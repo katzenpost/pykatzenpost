@@ -8,7 +8,7 @@ from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
 
 MODULE = 'katzenpost'
-REPO = 'github.com/katzenpost/bindings'
+REPO = 'github.com/katzenpost/bindings/python'
 
 # TODO make this work with develop mode too
 # TODO update rep if release (go get -u REPO)
@@ -22,7 +22,7 @@ def check_gopy():
         print ('--> go get github.com/go-python/gopy')
         sys.exit(1)
 
-class MinclientBuildExt(build_ext):
+class ClientBuildExt(build_ext):
     def build_extension(self, ext):
         check_gopy()
         os.environ['GODEBUG'] = 'cgocheck=0'
@@ -51,7 +51,7 @@ setup(
     zip_safe=False,
     platforms='any',
     ext_modules=[
-        Extension('minclient', sources=[])],
+        Extension('client', sources=[])],
     cmdclass={
-        'build_ext': MinclientBuildExt},
+        'build_ext': ClientBuildExt},
 )
