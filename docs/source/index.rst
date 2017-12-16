@@ -6,6 +6,12 @@
 Welcome to pykatzenpost's documentation!
 ========================================
 
+Katzenpost is an implementation of the Loopix Anonymity system.
+https://katzenpost.mixnetworks.org/
+
+This is the python package to control the katzenpost client, using a python
+extension that uses the golang library.
+
 Contents:
 
 .. toctree::
