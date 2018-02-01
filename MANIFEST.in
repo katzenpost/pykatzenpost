@@ -1,1 +1,4 @@
-global-include *.so
+include README.rst
+include LICENSE
+include requirements.txt
+include dev-requirements.txt

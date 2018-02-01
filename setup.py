@@ -1,57 +1,66 @@
-import commands
-import os
-import shlex
-import sys
-from distutils.spawn import spawn
+# -*- coding: utf-8 -*-
 
-from setuptools import setup, Extension
-from setuptools.command.build_ext import build_ext
+from __future__ import absolute_import
+from __future__ import print_function
 
-MODULE = 'katzenpost'
-REPO = 'github.com/katzenpost/bindings'
+from os.path import join
+from os import listdir
+from setuptools import setup
 
-# TODO make this work with develop mode too
-# TODO update rep if release (go get -u REPO)
+__version__ = '0.0.1'
+__author__ = 'katzenpost dev team'
+__contact__ = ''
+__url__ = 'https://github.com/katzenpost/pykatzenpost'
+__license__ = 'AGPL'
+__copyright__ = 'Copyright 2018'
 
-COMPILE_CMD = "gopy bind -output={output} {repo}"
 
-def check_gopy():
-    has_gopy = commands.getoutput('which gopy')
-    if not has_gopy:
-        print('error: could not find gopy in your system. Get it with:')
-        print ('--> go get github.com/go-python/gopy')
-        sys.exit(1)
-
-class MinclientBuildExt(build_ext):
-    def build_extension(self, ext):
-        check_gopy()
-        os.environ['GODEBUG'] = 'cgocheck=0'
-        ext_path = self.get_ext_fullpath(ext.name)
-        output = os.path.join(os.path.split(ext_path)[0], 'katzenpost')
-        cmd = COMPILE_CMD.format(output=output, repo=REPO)
-        spawn(shlex.split(cmd))
+description = '''
+    Katzenpost client library.
+    https://github.com/katzenpost
+    https://katzenpost.mixnetworks.org/
+'''
 
 setup(
     name='pykatzenpost',
-    description='Python bindings for the katzenpost client',
-    url='https://' + REPO,
-    version='0.0.1',
-    author='Kali Kaneko',
-    author_email='kali@leap.se',
-
+    version=__version__,
+    description=description,
+    long_description=open('README.rst', 'r').read(),
+    keywords=['python', 'mixnet', 'mix'],
+    install_requires=open('requirements.txt').readlines(),
+    # "pip install -e .[dev]" will install development requirements
+    extras_require=dict(
+        dev=open('dev-requirements.txt').readlines(),
+    ),
     classifiers=[
+        'Development Status :: 4 - Beta',
+        'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
+        'Natural Language :: English',
+        'Operating System :: POSIX :: Linux',
+        'Operating System :: Unix',
+        'Programming Language :: Python',
         'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: Implementation :: CPython',
-        'Programming Language :: Python :: Implementation :: PyPy',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+        'Topic :: Internet',
+        'Topic :: Security',
+    ],
+    author=__author__,
+    author_email=__contact__,
+    url=__url__,
+    license=__license__,
+    packages=[
+        "pykatzenpost",
     ],
 
-    packages=[MODULE],
-    zip_safe=False,
-    platforms='any',
-    ext_modules=[
-        Extension('minclient', sources=[])],
-    cmdclass={
-        'build_ext': MinclientBuildExt},
+    # I'm a little unclear if I'm doing this "properly", especially
+    # the documentation etc. Do we really want "share/txtorcon" for
+    # the first member of the tuple? Why does it seem I need to
+    # duplicate this in MANIFEST.in?
+
+    data_files=[
+        ('share/katzenpost', ['README.rst', 'MANIFEST.in', 'LICENSE']),
+    ],
 )
