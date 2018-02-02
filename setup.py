@@ -7,8 +7,8 @@ from distutils.spawn import spawn
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
 
-MODULE = 'katzenpost'
-REPO = 'github.com/katzenpost/bindings'
+MODULE = 'pykatzenpost'
+REPO = 'github.com/katzenpost/bindings/python'
 
 # TODO make this work with develop mode too
 # TODO update rep if release (go get -u REPO)
@@ -27,7 +27,7 @@ class MinclientBuildExt(build_ext):
         check_gopy()
         os.environ['GODEBUG'] = 'cgocheck=0'
         ext_path = self.get_ext_fullpath(ext.name)
-        output = os.path.join(os.path.split(ext_path)[0], 'katzenpost')
+        output = os.path.join(os.path.split(ext_path)[0])
         cmd = COMPILE_CMD.format(output=output, repo=REPO)
         spawn(shlex.split(cmd))
 
@@ -51,7 +51,7 @@ setup(
     zip_safe=False,
     platforms='any',
     ext_modules=[
-        Extension('minclient', sources=[])],
+        Extension('katzenpost', sources=[])],
     cmdclass={
         'build_ext': MinclientBuildExt},
 )
